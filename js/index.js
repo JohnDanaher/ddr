@@ -26,7 +26,6 @@ charTwoRight.src = 'images/char-2-move-right.png';
 const charTwoLeft = new Image();
 charTwoLeft.src = 'images/char-2-move-left.png';
 
-
 let charOneMoves1 = [];
 let charOneMoves2 = [];
 let charTwoMoves = [];
@@ -136,7 +135,8 @@ function computerMoves(){
   function updateMainCanvas() {
     updateScore();
     setTimeout(() => {computerMoves()}, 1000);
-    console.log(charOneMoves1, charOneMoves2)
+    charOneMoves1 = [];
+
   }
 
   function updateScore() {
@@ -180,17 +180,16 @@ document.addEventListener("keydown", e => {
         break;
     }
     if(charOneMoves1.length > charOneMoves2.length){
-        for(let i = 0; i<=charOneMoves1.length - 1; i++){
-            if(charOneMoves1[i] === charOneMoves2[i]){
-                charOneMoves2.push(charOneMoves1[i]);
-
-            }
-            // let newNew = charOneMoves1.slice(-1);
-            whoops();
-        }
-        
+    for(let i = 0; i<charOneMoves1.length; i++){
+        if(charOneMoves1[i] == charOneMoves2[i]){
+        console.log('YES')
+    } else {
+        charOneMoves2.push(+charOneMoves1.slice(-1));
+        console.log(charOneMoves1, charOneMoves2);
+        whoops();
+    }}
     }
-    console.log(charOneMoves1)
+    
 });
 document.addEventListener("keydown", e => {
     if(e.key === ' '){
