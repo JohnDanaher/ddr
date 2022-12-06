@@ -26,8 +26,7 @@ charTwoRight.src = 'images/char-2-move-right.png';
 const charTwoLeft = new Image();
 charTwoLeft.src = 'images/char-2-move-left.png';
 
-let charOneMoves1 = [];
-let charOneMoves2 = [];
+let charOneMoves = [];
 let charTwoMoves = [];
 
 let score = 0;
@@ -117,26 +116,17 @@ function computerMoves(){
 
 
     function whoops(){
-            // if(+charOneMoves1.slice(-1) !== +charTwoMoves.slice(-1)){
-            //     gameOver();
-          
-            //     // document.querySelector('#game-boards').setAttribute("style", "visibility: hidden;");
-            //     // document.querySelector('.game-intro').setAttribute("style", "background-color: black; width: 640px; height: 640px; visibility: visible;");
-            //     console.log("BIFFED")
-            // } else {
                 score += 10;
                 if(score > highScore){
                 highScore += 10;
                 }
                 updateMainCanvas();
             }
-    // }
   
   function updateMainCanvas() {
     updateScore();
     setTimeout(() => {computerMoves()}, 1000);
-    charOneMoves1 = [];
-
+    charOneMoves = [];
   }
 
   function updateScore() {
@@ -145,6 +135,13 @@ function computerMoves(){
     mainCtx.fillStyle = 'white';
     mainCtx.fillText(`Score: ${score}`, 253, 100);
     console.log(score)
+  }
+
+  function checkArrays(a, b) {
+      return Array.isArray(a) &&
+      Array.isArray(b) &&
+      a.length === b.length &&
+      a.every((val, index) => val === b[index]);
   }
 
   function gameOver(){
@@ -164,30 +161,27 @@ document.addEventListener("keydown", e => {
     switch (e.key){
     case 'ArrowUp':
         dancerBoi.dance(charOneUp);
-        charOneMoves1.push(1);
+        charOneMoves.push(1);
         break;
     case 'ArrowDown':
         dancerBoi.dance(charOneDown);
-        charOneMoves1.push(2);
+        charOneMoves.push(2);
         break;
     case 'ArrowRight':
         dancerBoi.dance(charOneRight);
-        charOneMoves1.push(3);
+        charOneMoves.push(3);
         break;
     case 'ArrowLeft':
         dancerBoi.dance(charOneLeft);
-        charOneMoves1.push(4);
+        charOneMoves.push(4);
         break;
     }
-    if(charOneMoves1.length > charOneMoves2.length){
-    for(let i = 0; i<charOneMoves1.length; i++){
-        if(charOneMoves1[i] == charOneMoves2[i]){
-        console.log('YES')
+    if(charOneMoves.length === charTwoMoves.length){
+    if(checkArrays(charOneMoves, charTwoMoves) == false){
+        gameOver()
     } else {
-        charOneMoves2.push(+charOneMoves1.slice(-1));
-        console.log(charOneMoves1, charOneMoves2);
         whoops();
-    }}
+    }
     }
     
 });
@@ -208,7 +202,7 @@ function startGame(){
     dancerBoi.draw();
     computer.draw();
     charTwoMoves = [];
-    charOneMoves1 = [];
+    charOneMoves = [];
     score = 0;
     updateScore();
     updateMainCanvas();
