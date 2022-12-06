@@ -28,7 +28,7 @@ charTwoLeft.src = 'images/char-2-move-left.png';
 
 let charOneMoves = [];
 let charTwoMoves = [];
-
+let fX;
 let score = 0;
 let highScore = 0;
 
@@ -63,9 +63,29 @@ const color = {
 
   }
 
+  class Computer extends Dancer {
+    constructor(x, y, img, sW, sH) {
+        super(x, y, img);
+        this.sW = sW;
+        this.sH = sH;
+    }
+
+    drawComputer(){
+    mainCtx.clearRect(this.x, this.y, 170, 170);
+    mainCtx.drawImage(this.img, fX, 150, this.sW, this.sH, this.x, this.y, 150, 150);
+    }
+
+    danceComputer(pos, frame){
+        mainCtx.clearRect(this.x, this.y, 170, 170);
+    mainCtx.drawImage(dir, this.x, this.y, 150, 150);
+    setTimeout(() => {this.draw();}, 1000)
+    }
+
+  }
+
   let dancerBoi = new Dancer(100, 400, charOneDefault);
 
-  let computer = new Dancer(400, 400, charTwoDefault);
+  let computer = new Computer(400, 400, charTwoDefault, );
   
   function animateCanvas() {
     let num = 0;
