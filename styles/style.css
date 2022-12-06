@@ -1,0 +1,22 @@
+#start-button {
+    position: absolute;
+    margin: 450px 265px;
+    padding: 20px;
+    border-radius: 50%;
+    background-color: purple;
+    color: white;
+}
+
+#game-boards {
+    position: relative;
+}
+
+#background-canvas, #main-canvas {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+#background-canvas {
+    background-color: black;
+}
