@@ -28,10 +28,9 @@ charTwoLeft.src = 'images/char-2-move-left.png';
 
 let charOneMoves = [];
 let charTwoMoves = [];
-let fX;
+
 let score = 0;
 let highScore = 0;
-
 
 const color = {
     red: Math.floor(Math.random() * 255),
@@ -41,51 +40,27 @@ const color = {
         return `rgb(${this.red}, ${this.green}, ${this.blue})`;
       }
   };
-
-
   class Dancer {
     constructor(x, y, img){
         this.x = x;
         this.y = y;
         this.img = img;
     }
-
     draw(){
     mainCtx.clearRect(this.x, this.y, 170, 170);
     mainCtx.drawImage(this.img, this.x, this.y, 150, 150);
     }
-
     dance(dir){
     mainCtx.clearRect(this.x, this.y, 170, 170);
     mainCtx.drawImage(dir, this.x, this.y, 150, 150);
-    setTimeout(() => {this.draw();}, 1000)
-    }
-
-  }
-
-  class Computer extends Dancer {
-    constructor(x, y, img, sW, sH) {
-        super(x, y, img);
-        this.sW = sW;
-        this.sH = sH;
-    }
-
-    drawComputer(){
-    mainCtx.clearRect(this.x, this.y, 170, 170);
-    mainCtx.drawImage(this.img, fX, 150, this.sW, this.sH, this.x, this.y, 150, 150);
-    }
-
-    danceComputer(pos, frame){
-        mainCtx.clearRect(this.x, this.y, 170, 170);
-    mainCtx.drawImage(dir, this.x, this.y, 150, 150);
-    setTimeout(() => {this.draw();}, 1000)
+    setTimeout(() => {this.draw();}, 500)
     }
 
   }
 
   let dancerBoi = new Dancer(100, 400, charOneDefault);
 
-  let computer = new Computer(400, 400, charTwoDefault, );
+  let computer = new Dancer(400, 400, charTwoDefault);
   
   function animateCanvas() {
     let num = 0;
@@ -112,24 +87,45 @@ const color = {
     requestAnimationFrame(animateCanvas);
 } 
 
+const sleep = (time) => {
+    return new Promise((resolve) => setTimeout(resolve, time))
+  }
 
-function computerMoves(){
+const computerMoves = async () => {
     let danceNum = Math.floor(Math.random() * 4) + 1;
     charTwoMoves.push(danceNum);
-    charTwoMoves.forEach(move => {
-        if(move == 1){
-           computer.dance(charTwoUp)
+    for(let i = 0; i<charTwoMoves.length; i++){
+        if(charTwoMoves[i] === 1){
+            await sleep(1000)
+            computer.dance(charTwoUp)
         }
-        if(move == 2){
+        if(charTwoMoves[i] === 2){
+            await sleep(1000)
             computer.dance(charTwoDown)
         }
-        if(move == 3){
+        if(charTwoMoves[i] === 3){
+            await sleep(1000)
             computer.dance(charTwoRight)
         }
-        if(move == 4){
+        if(charTwoMoves[i] === 4){
+            await sleep(1000)
             computer.dance(charTwoLeft)
         }
-    })
+    }
+    // charTwoMoves.forEach(move => {
+    //     if(move == 1){
+    //        computer.dance(charTwoUp)
+    //     }
+    //     if(move == 2){
+    //         computer.dance(charTwoDown)
+    //     }
+    //     if(move == 3){
+    //         computer.dance(charTwoRight)
+    //     }
+    //     if(move == 4){
+    //         computer.dance(charTwoLeft)
+    //     }
+    // })
         
         console.log(charTwoMoves);
     }
