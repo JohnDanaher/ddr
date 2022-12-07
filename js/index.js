@@ -54,18 +54,18 @@ const color = {
         this.img = img;
     }
     draw(){
-    mainCtx.clearRect(this.x, this.y, 170, 170);
+    mainCtx.clearRect(this.x, this.y, 150, 150);
     mainCtx.drawImage(this.img, this.x, this.y, 150, 150);
     }
     dance(dir){
-    mainCtx.clearRect(this.x, this.y, 170, 170);
+    mainCtx.clearRect(this.x, this.y, 150, 150);
     mainCtx.drawImage(dir, this.x, this.y, 150, 150);
-    setTimeout(() => {this.draw();}, 500)
+    setTimeout(() => {this.draw();}, 300)
     }
 
   }
 
-  let dancerBoi = new Dancer(100, 400, charOneDefault);
+  let dancerBoi = new Dancer(90, 400, charOneDefault);
 
   let computer = new Dancer(400, 400, charTwoDefault);
   
@@ -109,16 +109,8 @@ function animateSpeakers(){
         size = 170;
     }
 
-    // function boom(){
-    //     size = 210;
-    //     requestAnimationFrame(boom);
-    // }
-
     requestAnimationFrame(animateSpeakers);
 }
-
-
-
 
 
 const sleep = (time) => {
@@ -130,27 +122,37 @@ const computerMoves = async () => {
     charTwoMoves.push(danceNum);
     for(let i = 0; i<charTwoMoves.length; i++){
         if(charTwoMoves[i] === 1){
-            await sleep(500)
+            await sleep(700)
             computer.dance(charTwoUp)
         }
         if(charTwoMoves[i] === 2){
-            await sleep(500)
+            await sleep(700)
             computer.dance(charTwoDown)
         }
         if(charTwoMoves[i] === 3){
-            await sleep(500)
+            await sleep(700)
             computer.dance(charTwoRight)
         }
         if(charTwoMoves[i] === 4){
-            await sleep(500)
+            await sleep(700)
             computer.dance(charTwoLeft)
         }
     }
         console.log(charTwoMoves);
+        setTimeout(() => {mainCtx.clearRect(300, 100, 150, 500);
+        mainCtx.clearRect(550, 100, 150, 500);
+        mainCtx.clearRect(450, 100, 150, 300);}, 500);
+        spotlight(150, 0, 300);
+       
     }
 
+function updateScore(){
+    mainCtx.clearRect(200, 200, 150, 500);
+    mainCtx.clearRect(0, 400, 100, 400);
+    spotlight(500, 640, 340);
 
-    function whoops(){
+
+
                 score += 10;
                 if(score > highScore){
                 highScore += 10;
@@ -158,13 +160,27 @@ const computerMoves = async () => {
                 updateMainCanvas();
             }
   
-  function updateMainCanvas() {
-    updateScore();
+function updateMainCanvas() {
+    displayScore();
     setTimeout(() => {computerMoves()}, 500);
     charOneMoves = [];
   }
 
-  function updateScore() {
+function spotlight(x, y, z){
+setTimeout(() =>{
+mainCtx.beginPath();
+mainCtx.moveTo(x, 30);
+mainCtx.lineTo(y, 550);
+mainCtx.lineTo(z, 550);
+mainCtx.closePath();
+
+mainCtx.fillStyle = 'rgba(255, 255, 0, 0.1)';
+
+mainCtx.fill();
+mainCtx.stroke()}, 1000);
+}
+
+  function displayScore() {
     mainCtx.clearRect(0, 0, 500, 400);
     mainCtx.font = '40px serif';
     mainCtx.fillStyle = 'white';
@@ -180,15 +196,17 @@ const computerMoves = async () => {
   }
 
   function gameOver(){
+    mainCtx.clearRect(200, 200, 150, 500);
+    mainCtx.clearRect(0, 400, 100, 400);
     mainCtx.clearRect(0, 0, 500, 400);
-    mainCtx.font = '50px serif';
-    mainCtx.fillStyle = 'white';
-    mainCtx.fillText(`GAME OVER!`, 165, 100);
-    mainCtx.font = '40px serif';
-    mainCtx.fillText(` Final Score: ${score}`, 197, 150);
-    mainCtx.fillText(` High Score: ${highScore}`, 198, 200);
     mainCtx.font = '30px serif';
-    mainCtx.fillText(`  Hit Spacebar`, 227, 350);
+    mainCtx.fillStyle = 'white';
+    mainCtx.fillText(`GAME OVER!`, 229, 100);
+    mainCtx.font = '20px serif';
+    mainCtx.fillText(` Final Score: ${score}`, 256, 150);
+    mainCtx.fillText(` High Score: ${highScore}`, 257, 200);
+    mainCtx.font = '20px serif';
+    mainCtx.fillText(`  Hit Spacebar to restart`, 223, 350);
     console.log(score)
   }
 
@@ -215,7 +233,7 @@ document.addEventListener("keydown", e => {
     if(checkArrays(charOneMoves, charTwoMoves) == false){
         gameOver()
     } else {
-        whoops();
+        updateScore();
     }
     }
     
@@ -226,30 +244,22 @@ document.addEventListener("keydown", e => {
     }
     if(e.key === "m"){
         music.muted = !music.muted;
-        // if(music.play()){
-        //     music.pause()
-        // }
-        // if(music.pause()) {
-        //     music.play();
-        // }
     }
 });
 
-// document.addEventListener("load", () => {
-//     dancerBoi.draw();
-// })
 
 function startGame(){
     animateCanvas();
     document.querySelector('.game-intro').setAttribute("style", "visibility: hidden;");
     document.querySelector('#game-boards').removeAttribute("style");
     music.play();
+    spotlight(500, 640, 340);
     dancerBoi.draw();
     computer.draw();
     charTwoMoves = [];
     charOneMoves = [];
     score = 0;
-    updateScore();
+    displayScore();
     updateMainCanvas();
 }
 document.getElementById('start-button').onclick = () => {
