@@ -4,6 +4,8 @@ ctx = backgroundCanvas.getContext('2d');
 mainCanvas = document.getElementById('main-canvas');
 mainCtx = mainCanvas.getContext('2d');
 
+const music = document.querySelector("#my-music");
+
 const charOneDefault = new Image();
 charOneDefault.src = 'images/char-1-default.png';
 const charOneUp = new Image();
@@ -25,6 +27,11 @@ const charTwoRight = new Image();
 charTwoRight.src = 'images/char-2-move-right.png';
 const charTwoLeft = new Image();
 charTwoLeft.src = 'images/char-2-move-left.png';
+
+const speakerLeft = new Image();
+speakerLeft.src = 'images/loudspeaker-left.png'
+const speakerRight = new Image();
+speakerRight.src = 'images/loudspeaker-right.png'
 
 let charOneMoves = [];
 let charTwoMoves = [];
@@ -74,6 +81,7 @@ const color = {
         ctx.clearRect(i, i + tileNum, 80, 80);
         ctx.fillStyle = color.rgb();
         ctx.fillRect(i, i + tileNum, 80, 80);
+        
     }
   }
     loopDancefloor(0);
@@ -85,7 +93,33 @@ const color = {
     loopDancefloor(-480);
 
     requestAnimationFrame(animateCanvas);
+
 } 
+
+let size = 170;
+
+
+function animateSpeakers(){
+    mainCtx.clearRect(10, 10, 220, 220);
+    mainCtx.clearRect(455, 10, 220, 220);
+    mainCtx.drawImage(speakerLeft, 10, 10, size, size);
+    mainCtx.drawImage(speakerRight, 455, 10, size, size);
+    size += 2;
+    if(size == 180){
+        size = 170;
+    }
+
+    // function boom(){
+    //     size = 210;
+    //     requestAnimationFrame(boom);
+    // }
+
+    requestAnimationFrame(animateSpeakers);
+}
+
+
+
+
 
 const sleep = (time) => {
     return new Promise((resolve) => setTimeout(resolve, time))
@@ -96,37 +130,22 @@ const computerMoves = async () => {
     charTwoMoves.push(danceNum);
     for(let i = 0; i<charTwoMoves.length; i++){
         if(charTwoMoves[i] === 1){
-            await sleep(1000)
+            await sleep(500)
             computer.dance(charTwoUp)
         }
         if(charTwoMoves[i] === 2){
-            await sleep(1000)
+            await sleep(500)
             computer.dance(charTwoDown)
         }
         if(charTwoMoves[i] === 3){
-            await sleep(1000)
+            await sleep(500)
             computer.dance(charTwoRight)
         }
         if(charTwoMoves[i] === 4){
-            await sleep(1000)
+            await sleep(500)
             computer.dance(charTwoLeft)
         }
     }
-    // charTwoMoves.forEach(move => {
-    //     if(move == 1){
-    //        computer.dance(charTwoUp)
-    //     }
-    //     if(move == 2){
-    //         computer.dance(charTwoDown)
-    //     }
-    //     if(move == 3){
-    //         computer.dance(charTwoRight)
-    //     }
-    //     if(move == 4){
-    //         computer.dance(charTwoLeft)
-    //     }
-    // })
-        
         console.log(charTwoMoves);
     }
 
@@ -141,7 +160,7 @@ const computerMoves = async () => {
   
   function updateMainCanvas() {
     updateScore();
-    setTimeout(() => {computerMoves()}, 1000);
+    setTimeout(() => {computerMoves()}, 500);
     charOneMoves = [];
   }
 
@@ -205,6 +224,15 @@ document.addEventListener("keydown", e => {
     if(e.key === ' '){
         startGame();
     }
+    if(e.key === "m"){
+        music.muted = !music.muted;
+        // if(music.play()){
+        //     music.pause()
+        // }
+        // if(music.pause()) {
+        //     music.play();
+        // }
+    }
 });
 
 // document.addEventListener("load", () => {
@@ -215,6 +243,7 @@ function startGame(){
     animateCanvas();
     document.querySelector('.game-intro').setAttribute("style", "visibility: hidden;");
     document.querySelector('#game-boards').removeAttribute("style");
+    music.play();
     dancerBoi.draw();
     computer.draw();
     charTwoMoves = [];
@@ -224,5 +253,6 @@ function startGame(){
     updateMainCanvas();
 }
 document.getElementById('start-button').onclick = () => {
+    animateSpeakers();
     startGame();
 }
