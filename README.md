@@ -54,7 +54,7 @@
   <li>Add spotlights</li>
 </ul>
 <h2>Links</h2>
-<a href="https://trello.com/invite/b/KwnLfONC/ATTI8bbbf316f2c1ed52222a0d10e3590e6e5A0F1CD8/ddr-top-secret-no-gurlz-allowd"></a>
-<a href="https://docs.google.com/presentation/d/1_fy20KhN4vEbw_Ga7a-ZojXXh2anJJ_N0l9T2cyf4xg/edit?usp=sharing"></a>
-<a href="https://github.com/JohnDanaher/ddr.git"></a>
-<a href="https://johndanaher.github.io/ddr/"></a>
+<a href="https://trello.com/invite/b/KwnLfONC/ATTI8bbbf316f2c1ed52222a0d10e3590e6e5A0F1CD8/ddr-top-secret-no-gurlz-allowd">Trello</a>
+<a href="https://docs.google.com/presentation/d/1_fy20KhN4vEbw_Ga7a-ZojXXh2anJJ_N0l9T2cyf4xg/edit?usp=sharing">Slides</a>
+<a href="https://github.com/JohnDanaher/ddr.git">Repository</a>
+<a href="https://johndanaher.github.io/ddr/">Game</a>
