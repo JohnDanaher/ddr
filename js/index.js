@@ -42,6 +42,8 @@ let charTwoMoves = [];
 let score = 0;
 let highScore = 0;
 
+let thisNum = 0;
+
 const color = {
     red: Math.floor(Math.random() * 255),
     green: Math.floor(Math.random() * 255),
@@ -150,16 +152,21 @@ const computerMoves = async () => {
         mainCtx.clearRect(300, 220, 150, 500);
         mainCtx.clearRect(550, 100, 150, 500);
         mainCtx.clearRect(450, 100, 150, 300);}, 500);
-        spotlight(150, 0, 300);
-       
+        spotlight(150, 0, 300);   
+        thisNum = 1;
+        console.log(thisNum);
+          
     }
 
+
 function updateScore(){
+    thisNum = 0;
+    console.log(thisNum)
+
     mainCtx.clearRect(200, 200, 150, 500);
     mainCtx.clearRect(0, 400, 100, 400);
     mainCtx.clearRect(0, 200, 300, 200);
     spotlight(500, 640, 340);
-
 
 
                 score += 10;
@@ -200,6 +207,7 @@ mainCtx.stroke()}, 1000);
     if(score >= 1000){
         horizontalPos = 273;
 
+
     }
     mainCtx.clearRect(210, 190, 100, 100);
     mainCtx.font = '26px Zen Dots';
@@ -225,27 +233,34 @@ mainCtx.stroke()}, 1000);
     mainCtx.font = '16px Zen Dots';
     mainCtx.fillText(` Final Score: ${score}`, 245, 150);
     mainCtx.fillText(` High Score: ${highScore}`, 247, 200);
-    mainCtx.font = '16px Zen Dots';
-    mainCtx.fillText(`  Hit Spacebar to restart`, 185, 350);
+    mainCtx.font = '15px Zen Dots';
+    mainCtx.fillText(`   Hit Spacebar to restart`, 200, 300);
+    thisNum = 2;
+
   }
+
 
 document.addEventListener("keydown", e => {
     switch (e.key){
     case 'ArrowUp':
+        if(thisNum === 1){
         dancerBoi.dance(charOneUp);
-        charOneMoves.push(1);
+        charOneMoves.push(1);}
         break;
     case 'ArrowDown':
+        if(thisNum === 1){
         dancerBoi.dance(charOneDown);
-        charOneMoves.push(2);
+        charOneMoves.push(2);}
         break;
     case 'ArrowRight':
+        if(thisNum === 1){
         dancerBoi.dance(charOneRight);
-        charOneMoves.push(3);
+        charOneMoves.push(3);}
         break;
     case 'ArrowLeft':
+        if(thisNum === 1){
         dancerBoi.dance(charOneLeft);
-        charOneMoves.push(4);
+        charOneMoves.push(4);}
         break;
     }
     if(charOneMoves.length === charTwoMoves.length){
@@ -255,11 +270,14 @@ document.addEventListener("keydown", e => {
         updateScore();
     }
     }
-    
+
 });
+
 document.addEventListener("keydown", e => {
     if(e.key === ' '){
+        if(thisNum === 2){
         startGame();
+        }
     }
     if(e.key === "m"){
         music.muted = !music.muted;
@@ -279,6 +297,7 @@ function startGame(){
     computer.draw();
     charTwoMoves = [];
     charOneMoves = [];
+    thisNum = 0;
     score = 0;
     displayScore();
     updateMainCanvas();
