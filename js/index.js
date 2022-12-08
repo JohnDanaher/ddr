@@ -271,6 +271,7 @@ document.addEventListener("keydown", e => {
 
 
 function startGame(){
+    mainCtx.clearRect(0,0, 640, 640);
     animateCanvas();
     document.querySelector('.game-intro').setAttribute("style", "visibility: hidden;");
     document.querySelector('#game-boards').removeAttribute("style");
