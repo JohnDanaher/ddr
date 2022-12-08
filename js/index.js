@@ -29,9 +29,12 @@ const charTwoLeft = new Image();
 charTwoLeft.src = 'images/char-2-move-left.png';
 
 const speakerLeft = new Image();
-speakerLeft.src = 'images/loudspeaker-left.png'
+speakerLeft.src = 'images/loudspeaker-left.png';
 const speakerRight = new Image();
-speakerRight.src = 'images/loudspeaker-right.png'
+speakerRight.src = 'images/loudspeaker-right.png';
+
+const discoBall = new Image();
+discoBall.src = 'images/disco-ball.png';
 
 let charOneMoves = [];
 let charTwoMoves = [];
@@ -100,8 +103,8 @@ let size = 170;
 
 
 function animateSpeakers(){
-    mainCtx.clearRect(10, 10, 220, 220);
-    mainCtx.clearRect(455, 10, 220, 220);
+    mainCtx.clearRect(10, 10, 200, 220);
+    mainCtx.clearRect(440, 10, 195, 220);
     mainCtx.drawImage(speakerLeft, 10, 10, size, size);
     mainCtx.drawImage(speakerRight, 455, 10, size, size);
     size += 2;
@@ -110,6 +113,11 @@ function animateSpeakers(){
     }
 
     requestAnimationFrame(animateSpeakers);
+}
+
+function animateDiscoBall(){
+    mainCtx.clearRect(210, 0, 100, 100);
+    mainCtx.drawImage(discoBall, 195, 0, 250, 160);
 }
 
 
@@ -139,7 +147,8 @@ const computerMoves = async () => {
         }
     }
         console.log(charTwoMoves);
-        setTimeout(() => {mainCtx.clearRect(300, 100, 150, 500);
+        setTimeout(() => {
+        mainCtx.clearRect(300, 220, 150, 500);
         mainCtx.clearRect(550, 100, 150, 500);
         mainCtx.clearRect(450, 100, 150, 300);}, 500);
         spotlight(150, 0, 300);
@@ -149,6 +158,7 @@ const computerMoves = async () => {
 function updateScore(){
     mainCtx.clearRect(200, 200, 150, 500);
     mainCtx.clearRect(0, 400, 100, 400);
+    mainCtx.clearRect(0, 200, 300, 200);
     spotlight(500, 640, 340);
 
 
@@ -181,10 +191,22 @@ mainCtx.stroke()}, 1000);
 }
 
   function displayScore() {
-    mainCtx.clearRect(0, 0, 500, 400);
-    mainCtx.font = '40px serif';
+    let horizontalPos = 307;
+    if(score >= 10){
+        horizontalPos = 300;
+    }
+    if(score >= 100){
+        horizontalPos = 286;
+    }
+    if(score >= 1000){
+        horizontalPos = 273;
+
+    }
+    mainCtx.clearRect(210, 190, 100, 100);
+    mainCtx.font = '26px Zen Dots';
     mainCtx.fillStyle = 'white';
-    mainCtx.fillText(`Score: ${score}`, 253, 100);
+    mainCtx.fillText(`Score:`, 265, 190);
+    mainCtx.fillText(`${score}`, horizontalPos, 220);
     console.log(score)
   }
 
@@ -199,14 +221,14 @@ mainCtx.stroke()}, 1000);
     mainCtx.clearRect(200, 200, 150, 500);
     mainCtx.clearRect(0, 400, 100, 400);
     mainCtx.clearRect(0, 0, 500, 400);
-    mainCtx.font = '30px serif';
+    mainCtx.font = '26px Zen Dots';
     mainCtx.fillStyle = 'white';
-    mainCtx.fillText(`GAME OVER!`, 229, 100);
-    mainCtx.font = '20px serif';
-    mainCtx.fillText(` Final Score: ${score}`, 256, 150);
-    mainCtx.fillText(` High Score: ${highScore}`, 257, 200);
-    mainCtx.font = '20px serif';
-    mainCtx.fillText(`  Hit Spacebar to restart`, 223, 350);
+    mainCtx.fillText(`GAME OVER!`, 215, 100);
+    mainCtx.font = '16px Zen Dots';
+    mainCtx.fillText(` Final Score: ${score}`, 245, 150);
+    mainCtx.fillText(` High Score: ${highScore}`, 247, 200);
+    mainCtx.font = '16px Zen Dots';
+    mainCtx.fillText(`  Hit Spacebar to restart`, 185, 350);
     console.log(score)
   }
 
@@ -252,7 +274,8 @@ function startGame(){
     animateCanvas();
     document.querySelector('.game-intro').setAttribute("style", "visibility: hidden;");
     document.querySelector('#game-boards').removeAttribute("style");
-    music.play();
+    // music.play();
+    animateDiscoBall();
     spotlight(500, 640, 340);
     dancerBoi.draw();
     computer.draw();

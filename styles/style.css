@@ -1,3 +1,8 @@
+body {
+    font-family: 'Zen Dots', cursive;
+
+}
+
 #start-button {
     position: absolute;
     margin: 450px 265px;
