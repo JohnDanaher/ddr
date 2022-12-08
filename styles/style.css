@@ -14,14 +14,20 @@ body {
 
 #game-boards {
     position: relative;
+    font-family: 'Zen Dots', cursive;
+
 }
 
 #background-canvas, #main-canvas {
     position: absolute;
     top: 0px;
     left: 0px;
+    font-family: 'Zen Dots', cursive;
+
 }
 
 #background-canvas {
     background-color: black;
+    font-family: 'Zen Dots', cursive;
+
 }
