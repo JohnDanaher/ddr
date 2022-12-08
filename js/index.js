@@ -146,7 +146,6 @@ const computerMoves = async () => {
             computer.dance(charTwoLeft)
         }
     }
-        console.log(charTwoMoves);
         setTimeout(() => {
         mainCtx.clearRect(300, 220, 150, 500);
         mainCtx.clearRect(550, 100, 150, 500);
@@ -207,7 +206,6 @@ mainCtx.stroke()}, 1000);
     mainCtx.fillStyle = 'white';
     mainCtx.fillText(`Score:`, 265, 190);
     mainCtx.fillText(`${score}`, horizontalPos, 220);
-    console.log(score)
   }
 
   function checkArrays(a, b) {
@@ -229,7 +227,6 @@ mainCtx.stroke()}, 1000);
     mainCtx.fillText(` High Score: ${highScore}`, 247, 200);
     mainCtx.font = '16px Zen Dots';
     mainCtx.fillText(`  Hit Spacebar to restart`, 185, 350);
-    console.log(score)
   }
 
 document.addEventListener("keydown", e => {
@@ -275,7 +272,7 @@ function startGame(){
     animateCanvas();
     document.querySelector('.game-intro').setAttribute("style", "visibility: hidden;");
     document.querySelector('#game-boards').removeAttribute("style");
-    // music.play();
+    music.play();
     animateDiscoBall();
     spotlight(500, 640, 340);
     dancerBoi.draw();
