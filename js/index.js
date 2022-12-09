@@ -151,9 +151,10 @@ const computerMoves = async () => {
         setTimeout(() => {
         mainCtx.clearRect(300, 220, 150, 500);
         mainCtx.clearRect(550, 100, 150, 500);
-        mainCtx.clearRect(450, 100, 150, 300);}, 500);
-        spotlight(150, 0, 300);   
+        mainCtx.clearRect(450, 100, 150, 300);
         thisNum = 1;
+    }, 500);
+        spotlight(150, 0, 300);   
         console.log(thisNum);
           
     }
